@@ -16,7 +16,7 @@ def test_optimize_product_success():
     }
     mock_ollama_response = {"message": {"content": json.dumps(content_data)}}
 
-    with patch("ollama.chat", return_model=mock_ollama_response) as mock_chat:
+    with patch("ollama.chat", return_value=mock_ollama_response) as mock_chat:
         payload = {
             "sku": "SW-12345",
             "name": "leather boots waterproof basic black",
