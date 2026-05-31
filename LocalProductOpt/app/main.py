@@ -1,10 +1,11 @@
 from fastapi import FastAPI
+
 from app.models import RawProductInput, ShopwareProductOutput
 
 app = FastAPI(
     title="Local Product Optimizer API",
     description="Local Python microservice for GDPR-compliant Shopware SEO optimization",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 
@@ -14,5 +15,5 @@ def optimize_product(payload: RawProductInput):
         metaTitle=f"Kaufen Sie {payload.name} online | Ihr Shop",
         name=payload.name.strip().title(),
         description=f"<p>{payload.description.strip()}</p>",
-        metaDescription=payload.description[:150].strip()
+        metaDescription=payload.description[:150].strip(),
     )
