@@ -14,11 +14,7 @@ def test_optimize_product_success():
         "metaTitle": "title for meta",
         "metaDescription": "Description text for meta",
     }
-    mock_ollama_response = {
-        "message": {
-            "content": json.dumps(content_data)
-        }
-    }
+    mock_ollama_response = {"message": {"content": json.dumps(content_data)}}
 
     with patch("ollama.chat", return_model=mock_ollama_response) as mock_chat:
         payload = {
