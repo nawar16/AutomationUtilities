@@ -3,7 +3,7 @@ version: '3.8'
 services:
   optimizer-api:
     build:
-      context: ./local-product-optimizer
+      context: ./LocalProductOpt
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
