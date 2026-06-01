@@ -69,7 +69,7 @@ def test_shopware_payload_endpoint():
 
     mock_ollama_response = {"message": {"content": json.dumps(content_data)}}
 
-    with patch("ollama.chat", return_model=mock_ollama_response):
+    with patch("ollama.chat", return_value=mock_ollama_response):
         payload = {"sku": "SW-100", "name": "shoes", "description": "old shoes", "price": 59.50, "taxId": "my-tax-id"}
         response = client.post("/optimize/shopware-payload", json=payload)
         assert response.status_code == 200
