@@ -17,7 +17,7 @@ def test_optimize_product_success():
             "jederzeit sicheren Halt auf Schnee und Eis.</p>"
         ),
         "metaTitle": "Wasserdichte Leder-Winterstiefel in Schwarz kaufen",
-        "metaDescription": "Entdecken Sie robuste Herren- und Damen-Winterstiefel aus echtem Leder. Wasserdicht, warm gefüttert und ideal für winterliche Bedingungen.",
+        "metaDescription": "Entdecken Sie robuste Herren- und Damen-Winterstiefel aus echtem Leder.",
     }
 
     mock_ollama_response = {"message": {"content": json.dumps(content_data)}}
