@@ -59,10 +59,7 @@ async def optimize_and_serialize_to_shopware(payload: RawProductInput):
     optimized_dict = optimized_response.model_dump(by_alias=True)
 
     shopware_payload = serialize_for_shopware(
-        sku=payload.sku,
-        optimized_data=optimized_dict,
-        tax_id=payload.taxId,
-        price=payload.price
+        sku=payload.sku, optimized_data=optimized_dict, tax_id=payload.taxId, price=payload.price
     )
 
     return {"shopware_api_payload": shopware_payload}
