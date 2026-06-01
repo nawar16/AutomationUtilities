@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  optimizer-api:
+    build:
+      context: ./local-product-optimizer
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - OLLAMA_HOST=http://ollama-service:11434
+    depends_on:
+      - ollama-service
+
+  ollama-service:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_storage:/root/.ollama
+
+volumes:
+  ollama_storage:
