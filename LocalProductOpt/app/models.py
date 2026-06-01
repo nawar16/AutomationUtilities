@@ -8,6 +8,8 @@ class RawProductInput(BaseModel):
     name: str = Field(..., description="Original raw product title")
     description: str = Field(..., description="Unoptimized raw text description")
     keywords: Optional[List[str]] = Field(default=[], description="Target SEO keywords to inject")
+    price: Optional[float] = Field(default=0.0, description="Base product listing retail price")
+    taxId: Optional[str] = Field(default="c1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6", description="Shopware Tax ID UUID string")
 
 
 class ShopwareProductOutput(BaseModel):

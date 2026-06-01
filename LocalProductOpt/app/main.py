@@ -4,6 +4,7 @@ import ollama
 from fastapi import FastAPI, HTTPException
 
 from app.models import RawProductInput, ShopwareProductOutput
+from app.transformer import serialize_for_shopware
 
 app = FastAPI(
     title="Local Product Optimizer API",
@@ -50,3 +51,18 @@ async def optimize_product(payload: RawProductInput):
         raise HTTPException(status_code=502, detail=f"LLM generated invalid JSON structures: {str(e)}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Local AI inference node pipeline error: {str(e)}")
+
+
+@app.post("/optimize/shopware-payload")
+async def optimize_and_serialize_to_shopware(payload: RawProductInput):
+    optimized_response = await optimize_product(payload)
+    optimized_dict = optimized_response.model_dump(by_alias=True)
+
+    shopware_payload = serialize_for_shopware(
+        sku=payload.sku,
+        optimized_data=optimized_dict,
+        tax_id=payload.taxId,
+        price=payload.price
+    )
+
+    return {"shopware_api_payload": shopware_payload}
