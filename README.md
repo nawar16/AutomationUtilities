@@ -9,3 +9,11 @@ A self-hosted, **GDPR-compliant** e-commerce microservice designed to automate S
 * **Tech Stack:** Python, FastAPI, Pydantic v2, Ollama (Local LLM)
 * **Local Run Command:** 
   docker compose up --build
+
+
+### 2. Tax VAT Validator (`TaxVatValidator`)
+An asynchronous, decoupled corporate compliance utility aim to handle high-speed, parallel validation of European B2B VAT IDs against official EU VIES and BZSt government APIs.
+
+
+* **Tech Stack:** Python, Asyncio, HTTPX, Pydantic v2, Pytest
+
