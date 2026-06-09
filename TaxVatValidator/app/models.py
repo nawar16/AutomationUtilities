@@ -1,6 +1,8 @@
-from typing import Optional
 from datetime import datetime, timezone
+from typing import Optional
+
 from pydantic import BaseModel, Field
+
 from app.transformer import sanitize_vat_id, validate_german_format
 
 
