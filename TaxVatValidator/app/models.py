@@ -1,6 +1,7 @@
-
 from typing import Optional
-from pydantic import BaseModel, Field, field_validator
+
+from pydantic import BaseModel, Field
+
 from app.transformer import sanitize_vat_id, validate_german_format
 
 
