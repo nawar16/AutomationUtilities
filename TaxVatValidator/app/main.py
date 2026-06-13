@@ -26,6 +26,7 @@ async def process_record(
     }
 
     if model.is_structurally_valid_de or (len(model.sanitized_id) >= 4 and not model.sanitized_id.startswith("DE")):
+        #pass the local rules
         audit_log["status"] = "PENDING_NETWORK_VERIFICATION"
 
         response_data = await tax_client.dispatch_validation(client, model.sanitized_id)

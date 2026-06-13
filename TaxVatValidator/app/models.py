@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Any, Dict, Optional
 
 from pydantic import BaseModel, Field
 
@@ -27,3 +27,11 @@ class TaxAuthorityResponse(BaseModel):
     trader_name: Optional[str] = Field("UNKNOWN", description="Legal name in registry records.")
     trader_address: Optional[str] = Field("UNKNOWN", description="Registered physical operational address.")
     vies_consultation_id: Optional[str] = Field("LOCAL_FALLBACK_ERR", description="Unique legal audit trail token.")
+
+
+class AuditReceipt(BaseModel):
+    receipt_id: str = Field(...)
+    generation_timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    input_records: Dict[str, Any] = Field(..., description="raw customer registration payload")
+    verification_metrics: Optional[Dict[str, Any]] = Field(None, description="remote tax server properties data")
+    sha256_integrity_hash: str = Field(..., description="cryptographic fingerprint signature")
