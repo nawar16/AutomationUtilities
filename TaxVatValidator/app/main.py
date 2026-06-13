@@ -6,10 +6,8 @@ from typing import Any, Dict, List
 import httpx
 
 from app.client import AsyncTaxClient
+from app.crypto import generate_tamper_proof_receipt
 from app.models import VATIngestStream
-
-# from typing import Any, Dict, List
-# from app.models import VATIngestStream
 
 
 async def process_record(
@@ -35,6 +33,22 @@ async def process_record(
         audit_log["status"] = "SUCCESS_VERIFIED" if response_data.is_valid_active_vat else "SUCCESS_INVALID_ACCOUNT"
 
     return audit_log
+
+
+async def run_pipeline_worker(
+    client: httpx.AsyncClient, tax_client: AsyncTaxClient, raw_row: Dict[str, Any]
+) -> Dict[str, Any]:
+    model = VATIngestStream(**raw_row)
+
+    input_payload_snapshot = {"raw_vat_id": model.raw_vat_id, "company_name": model.company_name}
+    response_payload_snapshot = None
+
+    if model.is_structurally_valid_de or (len(model.sanitized_id) >= 4 and not model.sanitized_id.startswith("DE")):
+        remote_tax_data = await tax_client.dispatch_validation(client, model.sanitized_id)
+        response_payload_snapshot = remote_tax_data.model_dump()
+
+    sealed_compliance_receipt = generate_tamper_proof_receipt(input_payload_snapshot, response_payload_snapshot)
+    return sealed_compliance_receipt.model_dump()
 
 
 async def main_async() -> None:
