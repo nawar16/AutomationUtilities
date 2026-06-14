@@ -1,12 +1,12 @@
 import asyncio
-import json
 import sys
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 import httpx
 
 from app.client import AsyncTaxClient
 from app.crypto import generate_tamper_proof_receipt
+from app.file_io import parse_batch_input_file, write_audit_ledger_output
 from app.models import VATIngestStream
 
 
@@ -51,31 +51,43 @@ async def run_pipeline_worker(
     return sealed_compliance_receipt.model_dump()
 
 
-async def main_async() -> None:
-    mock_input_queue: List[Dict[str, Any]] = [
-        {"raw_vat_id": "de 123456789", "company_name": "Berlin Tech"},
-        {"raw_vat_id": "DE-987-654-321", "company_name": "Hamburg Logistics"},
-        {"raw_vat_id": "FR88123456789", "company_name": "Paris Fashion"},  # none-DE
-        {"raw_vat_id": "INVALID-DE-99", "company_name": "Data Collect"},
-        {"raw_vat_id": "DE12345678", "company_name": "Too Short"},
-    ]
-
+async def main_async(input_file: str, output_file: str) -> None:
     tax_client = AsyncTaxClient()
 
-    print("--- Async Connection ---")
+    print(f"Start loading data from: {input_file}")
+    untrusted_batch_rows = await parse_batch_input_file(input_file)
+    print(f"Successfully loaded {len(untrusted_batch_rows)} rows")
 
     async with httpx.AsyncClient(limits=tax_client.limits) as client:
-        tasks = [process_record(client, tax_client, record) for record in mock_input_queue]
+        task_workers = [run_pipeline_worker(client, tax_client, row) for row in untrusted_batch_rows]
+        finalized_receipt_ledger = await asyncio.gather(*task_workers)
 
-        completed_audit_trails = await asyncio.gather(*tasks)
-
-    print(json.dumps(completed_audit_trails, indent=4))
-    print("--- finish ---")
+    print(f"Exporting signed receipts to: {output_file}")
+    await write_audit_ledger_output(output_file, finalized_receipt_ledger)
+    print("Completed")
 
 
 def main() -> None:
+    input_target = "data/input_sample.csv"
+    output_target = "data/audit_res.json"
+
+    if len(sys.argv) >= 3:
+        input_target = sys.argv[1]
+        output_target = sys.argv[2]
+
+    from pathlib import Path
+
+    if not Path(input_target).exists():
+        Path("data").mkdir(exist_ok=True)
+        with open(input_target, "w", encoding="utf-8") as f:
+            f.write("raw_vat_id,company_name\n")
+            f.write("de 123456789,Berlin X\n")
+            f.write("DE-987-654-321,Hamburg Y\n")
+            f.write("FR88123456789,Paris Z\n")
+            f.write("INVALID-DE-99,Data Y\n")
+
     try:
-        asyncio.run(main_async())
+        asyncio.run(main_async(input_target, output_target))
     except KeyboardInterrupt:
         print("\ncanceled manually by operational signal.")
         sys.exit(1)
