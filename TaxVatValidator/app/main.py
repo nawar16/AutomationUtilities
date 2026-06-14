@@ -86,7 +86,6 @@ def main() -> None:
             f.write("FR88123456789,Paris Z\n")
             f.write("INVALID-DE-99,Data Y\n")
 
-
     try:
         asyncio.run(main_async(input_target, output_target))
     except Exception as fatal_error:
