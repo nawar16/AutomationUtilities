@@ -86,10 +86,11 @@ def main() -> None:
             f.write("FR88123456789,Paris Z\n")
             f.write("INVALID-DE-99,Data Y\n")
 
+
     try:
         asyncio.run(main_async(input_target, output_target))
-    except KeyboardInterrupt:
-        print("\ncanceled manually by operational signal.")
+    except Exception as fatal_error:
+        print(f"pipeline terminated via fault: {str(fatal_error)}")
         sys.exit(1)
     sys.exit(0)
 
