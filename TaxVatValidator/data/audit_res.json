@@ -1,0 +1,74 @@
+[
+    {
+        "receipt_id": "2697b2b8-5410-475d-abad-9ffc4dcf42d2",
+        "generation_timestamp": "2026-06-15T14:05:45.338584+00:00",
+        "input_records": {
+            "raw_vat_id": "de 123456789",
+            "company_name": "Berlin X"
+        },
+        "verification_metrics": {
+            "country_code": "DE",
+            "vat_number": "123456789",
+            "request_timestamp": "2026-06-15T14:05:45.338211+00:00",
+            "is_valid_active_vat": false,
+            "trader_name": "UNKNOWN",
+            "trader_address": "UNKNOWN",
+            "vies_consultation_id": "LOCAL_FALLBACK_ERR"
+        },
+        "sha256_integrity_hash": "ae9ef8070e5d862815b6ddac15c923cf12324b98a79a91e57a75f21185403521"
+    },
+    {
+        "receipt_id": "4bae7987-6e17-46ef-8a03-a83c3e5ed255",
+        "generation_timestamp": "2026-06-15T14:05:45.335292+00:00",
+        "input_records": {
+            "raw_vat_id": "DE-987-654-321",
+            "company_name": "Hamburg Y"
+        },
+        "verification_metrics": {
+            "country_code": "DE",
+            "vat_number": "987654321",
+            "request_timestamp": "2026-06-15T14:05:45.333739+00:00",
+            "is_valid_active_vat": false,
+            "trader_name": "UNKNOWN",
+            "trader_address": "UNKNOWN",
+            "vies_consultation_id": "LOCAL_FALLBACK_ERR"
+        },
+        "sha256_integrity_hash": "2cf2d6bc545126bc699279946baf12d11eb1fbdfbe6078e87369693f26fbcf03"
+    },
+    {
+        "receipt_id": "3083f395-8ca5-4241-82eb-33a7720a4953",
+        "generation_timestamp": "2026-06-15T14:05:45.980922+00:00",
+        "input_records": {
+            "raw_vat_id": "FR88123456789",
+            "company_name": "Paris Z"
+        },
+        "verification_metrics": {
+            "country_code": "FR",
+            "vat_number": "88123456789",
+            "request_timestamp": "2026-06-15T14:05:45.980447+00:00",
+            "is_valid_active_vat": false,
+            "trader_name": "UNKNOWN",
+            "trader_address": "UNKNOWN",
+            "vies_consultation_id": "LOCAL_FALLBACK_ERR"
+        },
+        "sha256_integrity_hash": "b506b765999c11de346ab48063d9632b090a539e43d216a0a23e2a553b69ffbb"
+    },
+    {
+        "receipt_id": "c0a30f00-c2ec-4350-ba96-dc7f556052ca",
+        "generation_timestamp": "2026-06-15T14:05:45.521313+00:00",
+        "input_records": {
+            "raw_vat_id": "INVALID-DE-99",
+            "company_name": "Data Y"
+        },
+        "verification_metrics": {
+            "country_code": "IN",
+            "vat_number": "VALIDDE99",
+            "request_timestamp": "2026-06-15T14:05:45.520945+00:00",
+            "is_valid_active_vat": false,
+            "trader_name": "UNKNOWN",
+            "trader_address": "UNKNOWN",
+            "vies_consultation_id": "LOCAL_FALLBACK_ERR"
+        },
+        "sha256_integrity_hash": "18ae34671539409d1efd0d258acf88ef609c06266ee4d8e26770afa70f75788f"
+    }
+]

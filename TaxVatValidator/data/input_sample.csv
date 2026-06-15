@@ -1,0 +1,5 @@
+raw_vat_id,company_name
+de 123456789,Berlin X
+DE-987-654-321,Hamburg Y
+FR88123456789,Paris Z
+INVALID-DE-99,Data Y
