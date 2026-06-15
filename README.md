@@ -16,4 +16,6 @@ An asynchronous, decoupled corporate compliance utility aim to handle high-speed
 
 
 * **Tech Stack:** Python, Asyncio, HTTPX, Pydantic v2, Pytest
+* **Execution Command:** 
+  python -m app.main --input data/input_batch.csv --output verification_receipts.json
 
