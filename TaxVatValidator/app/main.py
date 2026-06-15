@@ -1,28 +1,26 @@
+import argparse
 import asyncio
 import sys
-from typing import Any, Dict
-import argparse
+
 import httpx
 
 from app.client import AsyncTaxClient
 from app.crypto import generate_tamper_proof_receipt
-from app.file_io import parse_batch_input_file, write_audit_ledger_output
-from app.models import VATIngestStream
-from app.logger import configure_production_logging
 from app.exceptions import VATValidatorException
+from app.file_io import parse_batch_input_file, write_audit_ledger_output
+from app.logger import configure_production_logging
+from app.models import VATIngestStream
 
 logger = configure_production_logging("CLI-Orchestrator")
 
-async def run_pipeline_worker(
-    client: httpx.AsyncClient, tax_client: AsyncTaxClient, raw_row: dict
-) -> dict:
+
+async def run_pipeline_worker(client: httpx.AsyncClient, tax_client: AsyncTaxClient, raw_row: dict) -> dict:
 
     try:
         model = VATIngestStream(**raw_row)
     except Exception as validation_err:
         logger.warning(f"Skipping incorrect input structure row item: {str(validation_err)}")
         return {"error": "BAD_ROW_CONTRACT_LAYOUT", "raw_data_dump": raw_row}
-        
 
     input_payload_snapshot = {"raw_vat_id": model.raw_vat_id, "company_name": model.company_name}
     response_payload_snapshot = None
@@ -32,13 +30,13 @@ async def run_pipeline_worker(
         response_payload_snapshot = remote_tax_data.model_dump()
     else:
         logger.info(f"Local reject on format: '{model.raw_vat_id}'")
-    
+
     sealed_compliance_receipt = generate_tamper_proof_receipt(input_payload_snapshot, response_payload_snapshot)
     return sealed_compliance_receipt.model_dump()
 
 
 async def main_async(input_file: str, output_file: str) -> None:
-    tax_client = AsyncTaxClient()    
+    tax_client = AsyncTaxClient()
     try:
         logger.info(f"Opening data stream source from: {input_file}")
         batch_rows = await parse_batch_input_file(input_file)
@@ -61,13 +59,16 @@ async def main_async(input_file: str, output_file: str) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Compliance Automation: German & European Tax VAT ID Validator Engine"
+    parser = argparse.ArgumentParser(description="Compliance Automation: German & European Tax VAT ID Validator Engine")
+    parser.add_argument(
+        "--input", "-i", default="data/input_batch.csv", help="Source file location path (.csv or .json)"
     )
-    parser.add_argument("--input", "-i", default="data/input_batch.csv", help="Source file location path (.csv or .json)")
-    parser.add_argument("--output", "-o", default="data/audit_compliance_receipt.json", help="Output verification destination path")    
+    parser.add_argument(
+        "--output", "-o", default="data/audit_compliance_receipt.json", help="Output verification destination path"
+    )
     args = parser.parse_args()
     from pathlib import Path
+
     if args.input == "data/input_batch.csv" and not Path(args.input).exists():
         Path("data").mkdir(exist_ok=True)
         with open(args.input, "w", encoding="utf-8") as file_buffer:
