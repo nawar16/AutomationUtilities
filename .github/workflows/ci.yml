@@ -47,13 +47,21 @@ jobs:
     - name: Install subfolder project dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install pytest pytest-asyncio
         pip install -r LocalProductOpt/requirements.txt
+        pip install -r TaxVatValidator/requirements.txt
 
     - name: Execute product optimizer tests
       env:
         PYTHONPATH: LocalProductOpt
       run: |
         pytest LocalProductOpt/app/tests/
+    
+    - name: Execute tax validator tests
+      env:
+        PYTHONPATH: TaxVatValidator
+      run: |
+        pytest TaxVatValidator/tests/
 
   
   validate-container:
