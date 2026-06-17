@@ -14,9 +14,8 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 COPY app/ ./app/
 
+#for input files
+VOLUME ["/app/data"]
 
-EXPOSE 8000
 
-
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
- 
+ENTRYPOINT ["python", "-m", "app.main"]

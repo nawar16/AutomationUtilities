@@ -49,7 +49,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r LocalProductOpt/requirements.txt
 
-    - name: Execute isolated app suite by Pytest
+    - name: Execute product optimizer tests
       env:
         PYTHONPATH: LocalProductOpt
       run: |

@@ -18,6 +18,15 @@ services:
       - "11434:11434"
     volumes:
       - ollama_storage:/root/.ollama
+      
+  vat-validator:
+    build:
+      context: ./TaxVatValidator
+      dockerfile: Dockerfile
+    profiles:
+      - utilities
+    volumes:
+      - ./TaxVatValidator/data:/app/data
 
 volumes:
   ollama_storage:
