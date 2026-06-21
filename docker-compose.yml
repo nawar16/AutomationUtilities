@@ -19,7 +19,7 @@ services:
     volumes:
       - ollama_storage:/root/.ollama
       
-  vat-validator:
+  validator-script:
     build:
       context: ./TaxVatValidator
       dockerfile: Dockerfile

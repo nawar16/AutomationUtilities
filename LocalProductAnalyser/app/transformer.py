@@ -1,8 +1,7 @@
 import json
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 from models import ReviewAnalysis
-
 
 SYSTEM_PROMPT = """
 You are an expert e-commerce data analyst fluent in German and English.
@@ -16,6 +15,7 @@ Extract:
 - is_urgent (boolean)
 - issue_reason (short explanation if severe issue exists)
 """
+
 
 def sanitize_review(text: str) -> str:
     return " ".join(text.split())
@@ -39,6 +39,7 @@ Return JSON only matching the schema.
 """,
         },
     ]
+
 
 def parse_llm_response(content: str) -> Dict[str, Any]:
     return json.loads(content)

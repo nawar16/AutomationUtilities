@@ -19,3 +19,10 @@ An asynchronous, decoupled corporate compliance utility aim to handle high-speed
 * **Execution Command:** 
   python -m app.main --input data/input_batch.csv --output verification_receipts.json
 
+### 3. Local Product Reviews Analyzer (`LocalProductAnalyzer`)
+A self-hosted, e-commerce microservice designed to extract insights from product reviews and automatically flag urgent issues for customer support.
+
+
+* **Tech Stack:** Python, Pydantic v2, Ollama, Pytest
+
+
