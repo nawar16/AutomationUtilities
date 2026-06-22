@@ -1,9 +1,10 @@
 import json
 
 import ollama
-from models import ReviewAnalysis
-from storage import load_reviews
-from transformer import create_analysis_prompt
+
+from app.models import ReviewAnalysis
+from app.storage import load_reviews
+from app.transformer import create_analysis_prompt
 
 MODEL = "llama3"
 
