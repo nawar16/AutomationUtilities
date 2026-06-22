@@ -24,7 +24,7 @@ def main():
     print(f"Processing {len(reviews)} reviews\n")
     for idx, review in enumerate(reviews, 1):
         print(f"--- Review #{idx} ---")
-        result = analyze_review(review)
+        result = analyze_review(review["text"])
         print(f"score: {result.score}/5")
         print(f"Topics: {result.topics}")
         print(f"Severe: {result.is_urgent}")
