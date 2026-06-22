@@ -1,9 +1,11 @@
 import json
 from pathlib import Path
 
-REVIEWS_PATH = Path("reviews/reviews.json")
+BASE_DIR = Path(__file__).resolve().parent
 
-OUTPUT_DIR = Path("outputs")
+REVIEWS_PATH = BASE_DIR / "reviews" / "reviews.json"
+
+OUTPUT_DIR = BASE_DIR / "outputs"
 ANALYSIS_PATH = OUTPUT_DIR / "analysis.json"
 TICKET_PATH = OUTPUT_DIR / "ticket_reply.txt"
 
