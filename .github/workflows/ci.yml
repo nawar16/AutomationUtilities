@@ -50,6 +50,7 @@ jobs:
         pip install pytest pytest-asyncio
         pip install -r LocalProductOpt/requirements.txt
         pip install -r TaxVatValidator/requirements.txt
+        pip install -r LocalProductAnalyser/requirements.txt
 
     - name: Execute product optimizer tests
       env:
@@ -63,6 +64,11 @@ jobs:
       run: |
         pytest TaxVatValidator/tests/
 
+    - name: Execute product analyzer tests
+      env:
+        PYTHONPATH: LocalProductAnalyser
+      run: |
+        pytest LocalProductAnalyser/app/tests/
   
   validate-container:
     name: Docker runtime validation

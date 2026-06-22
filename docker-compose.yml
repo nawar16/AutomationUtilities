@@ -28,5 +28,16 @@ services:
     volumes:
       - ./TaxVatValidator/data:/app/data
 
+
+  analyzer-script:
+    build:
+      context: ./LocalProductAnalyser
+      dockerfile: Dockerfile
+    profiles:
+      - utilities
+    volumes:
+      - ./LocalProductAnalyser/data:/app/data
+
+
 volumes:
   ollama_storage:
