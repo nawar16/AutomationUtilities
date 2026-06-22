@@ -1,7 +1,7 @@
 import json
 from typing import Any, Dict, List
 
-from models import ReviewAnalysis
+from app.models import ReviewAnalysis
 
 SYSTEM_PROMPT = """
 You are an expert e-commerce data analyst fluent in German and English.
