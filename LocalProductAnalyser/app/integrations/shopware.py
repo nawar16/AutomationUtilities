@@ -1,9 +1,13 @@
+import os
+
 import requests
+from dotenv import load_dotenv
 
-SHOPWARE_URL = "https://shopware-domain.com"
+load_dotenv()
 
-CLIENT_ID = "ID"
-CLIENT_SECRET = "SECRET"
+SHOPWARE_URL = os.getenv("SHOPWARE_URL")
+CLIENT_ID = os.getenv("SHOPWARE_CLIENT_ID")
+CLIENT_SECRET = os.getenv("SHOPWARE_CLIENT_SECRET")
 
 
 def get_access_token():

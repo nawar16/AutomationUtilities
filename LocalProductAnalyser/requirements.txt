@@ -1,3 +1,5 @@
 pydantic>=2.6.0
 ollama>=0.2.0
 pytest>=8.0.0
+requests
+python-dotenv
