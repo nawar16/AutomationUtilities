@@ -2,8 +2,8 @@ import json
 
 import ollama
 
+from app.integrations.shopware import load_reviews
 from app.models import ReviewAnalysis
-from app.storage import load_reviews
 from app.transformer import create_analysis_prompt
 
 MODEL = "llama3"

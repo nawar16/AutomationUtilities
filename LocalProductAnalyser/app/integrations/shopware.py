@@ -1,4 +1,3 @@
-
 import requests
 
 SHOPWARE_URL = "https://shopware-domain.com"
@@ -24,10 +23,7 @@ def fetch_reviews():
 
     url = f"{SHOPWARE_URL}/api/product-review"
 
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "Content-Type": "application/json"
-    }
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
 
     response = requests.get(url, headers=headers)
     response.raise_for_status()
@@ -37,13 +33,11 @@ def fetch_reviews():
     reviews = []
 
     for item in data.get("data", []):
-        reviews.append({
-            "id": item["id"],
-            "text": item["attributes"]["content"]
-        })
+        reviews.append({"id": item["id"], "text": item["attributes"]["content"]})
 
     return reviews
 
-#def update_review_metadata():
 
-#def create_support_note():
+# def update_review_metadata():
+
+# def create_support_note():
