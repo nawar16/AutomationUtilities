@@ -4,7 +4,7 @@ A main repository containing AI microservices, automation pipelines, and complia
 
 
 ### 1. Local Product Optimizer (`LocalProductOpt`)
-A self-hosted, **GDPR-compliant** e-commerce microservice designed to automate SEO text optimization using local AI for **Shopware** frameworks locally.
+Request-driven, self-hosted, GDPR-compliant AI microservice that generates SEO-optimized Shopware product content on demand. Designed for request-response workflows where Shopware submits product data and receives optimized content.
 
 * **Tech Stack:** Python, FastAPI, Pydantic v2, Ollama (Local LLM)
 * **Local Run Command:** 
@@ -20,9 +20,16 @@ An asynchronous, decoupled corporate compliance utility aim to handle high-speed
   python -m app.main --input data/input_batch.csv --output verification_receipts.json
 
 ### 3. Local Product Reviews Analyzer (`LocalProductAnalyzer`)
-A self-hosted, e-commerce microservice designed to extract insights from product reviews and automatically flag urgent issues for customer support using local AI.
+Batch-processing, self-hosted AI microservice that analyzes customer reviews and automatically identifies and escalates urgent support issues.
+
+* **Tech Stack:** Python, Pydantic v2, Ollama, Pytest, requests, python-dotenv
+* **Local Run Command:** 
+python -m app.main --input reviews.json --output outputs/analysis.json
+* **Run Command with Shopware:** 
+python -m app.main --output outputs/analysis.json
 
 
-* **Tech Stack:** Python, Pydantic v2, Ollama, Pytest
+
+
 
 
