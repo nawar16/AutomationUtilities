@@ -22,7 +22,7 @@ def get_access_token():
     return response.json()["access_token"]
 
 
-def fetch_reviews():
+def load_reviews():
     token = get_access_token()
 
     url = f"{SHOPWARE_URL}/api/product-review"

@@ -20,4 +20,8 @@ class FakeOllama:
 
 def test_main_runs(monkeypatch):
     monkeypatch.setattr(main, "ollama", FakeOllama())
+    monkeypatch.setattr(
+        main, "load_reviews", lambda: [{"id": 1, "text": "Produkt ist kaputt"}, {"id": 2, "text": "Alles gut"}]
+    )
+
     main.main()
