@@ -9,9 +9,6 @@ from app.transformer import create_analysis_prompt
 MODEL = "llama3"
 
 
-reviews = load_reviews()
-
-
 def analyze_review(review_text: str):
     messages = create_analysis_prompt(review_text)
     response = ollama.chat(model=MODEL, messages=messages, format="json")
@@ -20,6 +17,7 @@ def analyze_review(review_text: str):
 
 
 def main():
+    reviews = load_reviews()
 
     print(f"Processing {len(reviews)} reviews\n")
     for idx, review in enumerate(reviews, 1):
